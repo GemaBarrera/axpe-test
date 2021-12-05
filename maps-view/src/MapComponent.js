@@ -23,11 +23,15 @@ const MapComponent = ({ zoom }) => {
   // Add marker
   useEffect(() => {
     if (map) {
-      map.setOptions({ center, zoom: zoom });
+      map.setOptions({
+        center,
+        zoom: zoom,
+        disableDefaultUI: true,
+      });
     }
     new window.google.maps.Marker({
       position: center,
-      map
+      map,
     });
   }, [map, center]);
 
