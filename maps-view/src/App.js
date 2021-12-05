@@ -1,8 +1,8 @@
+import MapsGrid from './MapsGrid';
+
 function App() {
   return (
-    <div className="App">
-      hello
-    </div>
+    <MapsGrid />
   );
 }
 
