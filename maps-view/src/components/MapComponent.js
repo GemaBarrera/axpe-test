@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 
-import Searcher from "./Searcher";
+import Searcher from "./Searcher/Searcher";
 
 
 const MapComponent = ({ zoom, id }) => {

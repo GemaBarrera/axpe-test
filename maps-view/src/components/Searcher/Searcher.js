@@ -1,7 +1,8 @@
+import './styles.css';
 import { useState, useEffect } from "react";
 import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
-import { addMark } from '../features/marks/addMarkSlice';
+import { addMark } from '../../features/marks/addMarkSlice';
 
 
 const Input = styled.input`
@@ -55,7 +56,6 @@ const Searcher = (props) => {
           setCenter({ lat, lng });
           autocomplete.bindTo("bounds", firstResult);
           map.setCenter(place.geometry.location);
-          // dispatch(addMark({address: place.name, geometry: place.geometry.location}));
         })
         .catch((e) => {
           console.log("Geocode was not successful for the following reason: " + e);
