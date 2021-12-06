@@ -1,9 +1,6 @@
 import MapsGrid from './MapsGrid';
 
-function App() {
-  return (
-    <MapsGrid />
-  );
-}
+
+const App = () => <MapsGrid />;
 
 export default App;

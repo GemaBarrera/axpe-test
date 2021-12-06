@@ -1,5 +1,7 @@
 import { useState } from "react";
 import styled from 'styled-components';
+import { useDispatch } from 'react-redux';
+import { addMark } from './features/marks/addMarkSlice';
 
 const Input = styled.input`
   position: absolute;
@@ -15,6 +17,7 @@ const Input = styled.input`
 `;
 
 const Searcher = (props) => {
+  const dispatch = useDispatch()
   const geocoder = new window.google.maps.Geocoder();
   const { setCenter } = props;
   const [address, setAddress] = useState("");
@@ -29,6 +32,10 @@ const Searcher = (props) => {
         const lat = location.lat();
         const lng = location.lng();
         setCenter({ lat, lng });
+        dispatch(addMark({ 
+          address: address,
+          location: location,
+        }));
       })
       .catch((e) => {
         alert("Geocode was not successful for the following reason: " + e);
