@@ -1,10 +1,9 @@
 import { useEffect, useRef, useState } from "react";
-import styled from 'styled-components';
 
 import Searcher from "./Searcher";
 
 
-const MapComponent = ({ zoom }) => {
+const MapComponent = ({ zoom, id }) => {
   const ref = useRef(null);
   const [map, setMap] = useState();
   const [center, setCenter] = useState({ lat: 0, lng: 0 });
@@ -37,7 +36,7 @@ const MapComponent = ({ zoom }) => {
 
   return (
     <>
-      <Searcher setCenter={setCenter} />
+      <Searcher setCenter={setCenter} id={id} map={map} center={center} />
       <div ref={ref} style={{ width: "100%", height: "100%" }} />
     </>
   );

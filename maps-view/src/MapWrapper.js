@@ -9,7 +9,7 @@ const render = (status) => {
 
 const MapWrapper = ({ mapComponent }) => {
   return (
-    <Wrapper apiKey={"AIzaSyCrOHknAX3QjWVGDN2HNBBfsfBL8DXoJB4"} render={render}>
+    <Wrapper apiKey={"AIzaSyCrOHknAX3QjWVGDN2HNBBfsfBL8DXoJB4&libraries=places"} render={render}>
       {mapComponent}
     </Wrapper>
   );
