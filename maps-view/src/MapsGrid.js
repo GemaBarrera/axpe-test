@@ -19,6 +19,7 @@ const Grid = styled.div`
 `;
 
 const MapContainer = styled.div`
+  position: relative;
   width: ${props => `${props.width}%`};
   height: 93%;
 

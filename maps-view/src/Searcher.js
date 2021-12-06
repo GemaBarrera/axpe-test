@@ -1,4 +1,18 @@
 import { useState } from "react";
+import styled from 'styled-components';
+
+const Input = styled.input`
+  position: absolute;
+  z-index: 1;
+  top: 40px;
+  right: 50%;
+  padding: 8px;
+  box-shadow: 0px 8px 10px -7px rgb(69 69 69 / 69%);
+  border: none;
+  border-radius: 4px;
+  outline: 0;
+  transform: translate(50%);
+`;
 
 const Searcher = (props) => {
   const geocoder = new window.google.maps.Geocoder();
@@ -21,15 +35,19 @@ const Searcher = (props) => {
       });
   };
 
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter') {
+      onSearch();
+    }
+  };
+
   return (
-    <>
-      <input
-        type="text"
-        value={address}
-        onChange={(e) => setAddress(e.target.value)}
-      />
-      <button onClick={onSearch}>Buscar</button>
-    </>
+    <Input
+      type="text"
+      value={address}
+      onChange={e => setAddress(e.target.value)}
+      onKeyPress={handleKeyDown}
+    />
   );
 };
 
