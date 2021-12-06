@@ -6,7 +6,7 @@ import Searcher from "./Searcher/Searcher";
 const MapComponent = ({ zoom, id }) => {
   const ref = useRef(null);
   const [map, setMap] = useState();
-  const [center, setCenter] = useState({ lat: 0, lng: 0 });
+  const [center, setCenter] = useState({ lat: 41.29722659999999, lng: 2.0830904 });
 
   /**
    * Because google.maps.Map requires an Element as a constructor parameter,
