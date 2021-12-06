@@ -1,4 +1,4 @@
-import MapsGrid from './MapsGrid';
+import MapsGrid from './components/MapsGrid';
 
 
 const App = () => <MapsGrid />;

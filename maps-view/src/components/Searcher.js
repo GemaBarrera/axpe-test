@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
-import { addMark } from './features/marks/addMarkSlice';
+import { addMark } from '../features/marks/addMarkSlice';
 
 
 const Input = styled.input`
