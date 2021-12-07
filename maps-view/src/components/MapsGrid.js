@@ -31,7 +31,7 @@ const MapContainer = styled.div`
 
 const MapsGrid = () => {
   return (
-    <Grid>
+    <Grid data-testid="grid">
       <MapContainer width={68}>
         <MapWrapper mapComponent={<MainMap />} />
       </MapContainer>
