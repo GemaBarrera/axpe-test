@@ -3,7 +3,7 @@ import './styles.css';
 import { useEffect, useRef } from "react";
 import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
-import { addMark } from '../../features/marks/addMarkSlice';
+import { addMark } from '../../redux/features/marks/addMarkSlice';
 
 
 const Input = styled.input`
