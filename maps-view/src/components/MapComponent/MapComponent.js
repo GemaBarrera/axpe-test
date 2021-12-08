@@ -1,6 +1,6 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, memo } from "react";
 
-import Searcher from "./Searcher/Searcher";
+import Searcher from "../Searcher";
 
 
 const MapComponent = ({ zoom, id }) => {
@@ -8,11 +8,6 @@ const MapComponent = ({ zoom, id }) => {
   const [map, setMap] = useState();
   const [center, setCenter] = useState({ lat: 41.29722659999999, lng: 2.0830904 });
 
-  /**
-   * Because google.maps.Map requires an Element as a constructor parameter,
-   * useRef is needed to maintain a mutable object
-   * that will persist for the lifetime of the component.
-   */
   useEffect(() => {
     if (ref.current && !map) {
       setMap(new window.google.maps.Map(ref.current, {}));
@@ -42,4 +37,4 @@ const MapComponent = ({ zoom, id }) => {
   );
 }
 
-export default MapComponent;
+export default memo(MapComponent);

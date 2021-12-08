@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 
-import MapWrapper from './MapWrapper';
-import MainMap from './MainMap';
-import SideMap from './SideMap';
+import MapWrapper from '../MapWrapper';
+import MainMap from '../MainMap';
+import SideMap from '../SideMap';
 
 const Grid = styled.div`
   display: flex;
