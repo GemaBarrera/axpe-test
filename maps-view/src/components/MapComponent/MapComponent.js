@@ -31,7 +31,7 @@ const MapComponent = ({ zoom, id }) => {
 
   return (
     <>
-      <Searcher setCenter={setCenter} id={id} map={map} center={center} />
+      <Searcher setCenter={setCenter} mapId={id} map={map} center={center} />
       <div ref={ref} style={{ width: "100%", height: "100%" }} />
     </>
   );

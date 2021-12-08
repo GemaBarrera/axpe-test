@@ -20,48 +20,55 @@ const Input = styled.input`
 `;
 
 const Searcher = (props) => {
-  const { setCenter, id, map, center } = props;
+  const { setCenter, mapId, map, center } = props;
 
   const dispatch = useDispatch()
   const searchInput = useRef(null)
 
-  const geocoder = new window.google.maps.Geocoder();
-  const input = document.getElementById(id);
-  const options = {
-    fields: ["formatted_address", "geometry", "name"],
-    strictBounds: false,
-    types: ["establishment"],
-  };
-  const autocomplete = new window.google.maps.places.Autocomplete(input, options);
-
-  const onSearch = () => {
+  useEffect(() => {
     if (map) {
-      const place = autocomplete.getPlace();
-      if (!place.geometry || !place.geometry.location) {
-        console.log("No details available for input: '" + place.name + "'");
-        return;
-      }
-      dispatch(addMark(place))
-      geocoder
-        .geocode({ address: place.name })
-        .then((result) => {
-          const { results } = result;
-          const firstResult = results[0];
-          const location = firstResult.geometry.location;
-          autocomplete.bindTo("bounds", firstResult);
-          setCenter(location);
-        })
-        .catch((e) => {
-          console.log("Geocode was not successful for the following reason: " + e);
-        });
+      const geocoder = new window.google.maps.Geocoder();
+      const input = document.getElementById(mapId);
+      const options = {
+        fields: ["formatted_address", "geometry", "name"],
+        strictBounds: false,
+        types: ["establishment"],
+      };
+      const autocomplete = new window.google.maps.places.Autocomplete(input, options);
+
+      const onSearch = () => {
+        const place = autocomplete.getPlace();
+        if (!place.geometry || !place.geometry.location) {
+          console.log("No details available for input: '" + place.name + "'");
+          return;
+        }
+        dispatch(addMark(place))
+        geocoder
+          .geocode({ address: place.name })
+          .then((result) => {
+            const { results } = result;
+            const firstResult = results[0];
+            const location = firstResult.geometry.location;
+            autocomplete.bindTo("bounds", firstResult);
+            setCenter(location);
+          })
+          .catch((e) => {
+            console.log("Geocode was not successful for the following reason: " + e);
+          });
+      };
+
+      autocomplete.addListener("place_changed", onSearch);
     }
-  };
+
+  }, [map, center]);
 
   useEffect(() => {
-    if(map) {
-      autocomplete.addListener("place_changed", () => onSearch());
-    }
-  }, [map, center]);
+    console.log('map', map)
+  }, [map])
+
+  useEffect(() => {
+    console.log('center', center)
+  }, [map])
 
   const onClearSearch = (e) => {
     e.preventDefault();
@@ -72,7 +79,7 @@ const Searcher = (props) => {
     <Input
       type="text"
       onFocus={e => onClearSearch(e)}
-      id={id}
+      id={mapId}
       ref={searchInput}
     />
   );
