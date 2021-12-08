@@ -1,5 +1,6 @@
+import { memo } from 'react';
 import './styles.css';
-import { useState, useEffect } from "react";
+import { useEffect, useRef } from "react";
 import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
 import { addMark } from '../../features/marks/addMarkSlice';
@@ -22,9 +23,7 @@ const Searcher = (props) => {
   const { setCenter, id, map, center } = props;
 
   const dispatch = useDispatch()
-
-  const [address, setAddress] = useState("");
-  const [newPlace, setNewPlace] = useState();
+  const searchInput = useRef(null)
 
   const geocoder = new window.google.maps.Geocoder();
   const input = document.getElementById(id);
@@ -39,23 +38,18 @@ const Searcher = (props) => {
     if (map) {
       const place = autocomplete.getPlace();
       if (!place.geometry || !place.geometry.location) {
-        // User entered the name of a Place that was not suggested and
-        // pressed the Enter key, or the Place Details request failed.
         console.log("No details available for input: '" + place.name + "'");
         return;
       }
-      setNewPlace(place);
+      dispatch(addMark(place))
       geocoder
         .geocode({ address: place.name })
         .then((result) => {
           const { results } = result;
           const firstResult = results[0];
           const location = firstResult.geometry.location;
-          const lat = location.lat();
-          const lng = location.lng();
-          setCenter({ lat, lng });
           autocomplete.bindTo("bounds", firstResult);
-          map.setCenter(place.geometry.location);
+          setCenter(location);
         })
         .catch((e) => {
           console.log("Geocode was not successful for the following reason: " + e);
@@ -63,20 +57,25 @@ const Searcher = (props) => {
     }
   };
 
-  autocomplete.addListener("place_changed", () => onSearch());
-
   useEffect(() => {
-    if (newPlace) dispatch(addMark(newPlace));
-  }, [center]);
+    if(map) {
+      autocomplete.addListener("place_changed", () => onSearch());
+    }
+  }, [map, center]);
+
+  const onClearSearch = (e) => {
+    e.preventDefault();
+    searchInput.current.value = ''
+  };
 
   return (
     <Input
       type="text"
-      value={address}
-      onChange={e => setAddress(e.target.value)}
+      onFocus={e => onClearSearch(e)}
       id={id}
+      ref={searchInput}
     />
   );
 };
 
-export default Searcher;
+export default memo(Searcher);
