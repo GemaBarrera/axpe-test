@@ -1,8 +1,9 @@
-import { memo } from 'react';
 import './styles.css';
-import { useEffect, useRef } from "react";
-import styled from 'styled-components';
+import { useEffect, useRef, memo } from "react";
 import { useDispatch } from 'react-redux';
+import PropTypes from 'prop-types';
+import styled from 'styled-components';
+
 import { addMark } from '../../redux/features/marks/addMarkSlice';
 
 
@@ -34,7 +35,7 @@ const Searcher = (props) => {
         strictBounds: false,
         types: ["establishment"],
       };
-      const autocomplete = new window.google.maps.places.Autocomplete(input, options);
+      const autocomplete = new window.google.maps.places.Autocomplete(input, options || {});
 
       const onSearch = () => {
         const place = autocomplete.getPlace();
@@ -59,16 +60,7 @@ const Searcher = (props) => {
 
       autocomplete.addListener("place_changed", onSearch);
     }
-
   }, [map, center]);
-
-  useEffect(() => {
-    console.log('map', map)
-  }, [map])
-
-  useEffect(() => {
-    console.log('center', center)
-  }, [map])
 
   const onClearSearch = (e) => {
     e.preventDefault();
@@ -84,5 +76,13 @@ const Searcher = (props) => {
     />
   );
 };
+
+Searcher.propTypes = {
+  setCenter: PropTypes.func.isRequired, 
+  mapId: PropTypes.string.isRequired, 
+  map: PropTypes.object, 
+  center: PropTypes.object.isRequired,
+};
+
 
 export default memo(Searcher);

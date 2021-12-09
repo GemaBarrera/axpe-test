@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState, memo } from "react";
+import PropTypes from 'prop-types';
 
 import Searcher from "../Searcher";
 
@@ -35,6 +36,15 @@ const MapComponent = ({ zoom, id }) => {
       <div ref={ref} style={{ width: "100%", height: "100%" }} />
     </>
   );
-}
+};
+
+MapComponent.propTypes = {
+  zoom: PropTypes.number,
+  id: PropTypes.string.isRequired,
+};
+
+MapComponent.defaultProps = {
+  zoom: 0,
+};
 
 export default memo(MapComponent);
