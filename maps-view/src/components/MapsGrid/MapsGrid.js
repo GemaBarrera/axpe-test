@@ -21,11 +21,11 @@ const Grid = styled.div`
 const MapContainer = styled.div`
   position: relative;
   width: ${props => `${props.width}%`};
-  height: 93%;
 
   @media (max-width: 768px) {
     width: 100%;
-    margin-bottom: 20px;
+    margin-bottom: ${props => props.little ? 0 : '10px' };
+    height: ${props => props.little ? '45%' : '55%' };
   }
 `;
 
@@ -35,7 +35,7 @@ const MapsGrid = () => {
       <MapContainer width={68}>
         <MapWrapper mapComponent={<MainMap />} />
       </MapContainer>
-      <MapContainer width={30}>
+      <MapContainer width={30} little>
         <MapWrapper mapComponent={<SideMap />} />
       </MapContainer>
     </Grid>
