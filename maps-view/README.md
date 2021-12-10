@@ -42,8 +42,8 @@ I've used *styled component* for the different components styles and *simple CSS
 
 ## Testing
 
-I ran out of time, so this is something that is pending.
-There's only one test done *App.test.js* that checks if the maps grid renders.
+I ran out of time, so this is something incompleted. Unfortunately I couldn't solve an error with 'window.google', so my tests didn't pass and I decided to remove them.
+There are only two tests done: one for the App.js, *App.test.js* , that checks if the maps grid renders and another for the MapWrapper component, that checks if it matches a snapshot.
 At least I've used prop-types to make sure each component receives the necessary props and the types are right.
 
 ## Optimization
